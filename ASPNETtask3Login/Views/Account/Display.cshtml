@@ -1,0 +1,28 @@
+﻿@model IEnumerable<User>
+@{
+	ViewData["Title"] = "Display";
+}
+
+<h1>Users</h1>
+
+@if (Model.Any())
+{
+	<table class="table table-hover">
+		<tr>
+			<th>@Html.DisplayNameFor(m => m.Username)</th>
+			<th>@Html.DisplayNameFor(m => m.Email)</th>
+		</tr>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(m => item.Username)</td>
+				<td>@Html.DisplayFor(m => item.Email)</td>
+			</tr>
+		}
+	</table>
+}
+else
+{
+	<p class="badge alert-warning">No users found</p>
+}
+<a asp-action="Login" class="btn btn-outline-warning">Loggout</a>

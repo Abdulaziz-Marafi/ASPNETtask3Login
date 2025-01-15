@@ -1,0 +1,52 @@
+﻿@model RegisterViewModel
+@{
+	ViewData["Title"] = "Register";
+}
+
+<h1>Register New User</h1>
+
+<form asp-action="Register" method="post">
+	<div class="form-group">
+		<label asp-for="Username"></label>
+		<input asp-for="Username" class="form-control" />
+		<span asp-validation-for="Username" class="badge alert-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Email"></label>
+		<input asp-for="Email" class="form-control" />
+		<span asp-validation-for="Email" class="badge alert-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="ConfirmEmail"></label>
+		<input asp-for="ConfirmEmail" class="form-control" />
+		<span asp-validation-for="ConfirmEmail" class="badge alert-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Password"></label>
+		<input asp-for="Password" class="form-control" />
+		<span asp-validation-for="Password" class="badge alert-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="ConfirmPassword"></label>
+		<input asp-for="ConfirmPassword" class="form-control" />
+		<span asp-validation-for="ConfirmPassword" class="badge alert-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Role!.RoleName"></label>
+		<select asp-for="RoleId" asp-items="ViewBag.Roles" class="form-control">
+						<option value="1">--Select Role--</option>
+		</select>
+		<span asp-validation-for="RoleId" class="badge alert-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-outline-primary m-3">Register</button>
+</form>
+
+<a asp-action="Login" asp-controller="Account" class="btn btn-outline-secondary m-3">Login</a>
+
+@section Scripts
+{
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
