@@ -31,30 +31,35 @@ namespace ASPNETtask3Login.Controllers
             if (ModelState.IsValid)
             {
                 // Check if username is taken
-                var user = db.Users.FirstOrDefault(u => u.Username == model.Username);
-                if (user != null)
+                var user = db.Users.Where(u => u.Username == model.Username);
+                if (user.Any())
                 {
                     ModelState.AddModelError("Username", "Username is already taken");
+                    ViewBag.Roles = new SelectList(db.Roles, "RoleId", "RoleName");
+
                     return View(model);
                 }
                 // Check if email is taken
-                user = db.Users.FirstOrDefault(u => u.Email == model.Email);
-                if (user != null)
+                user = db.Users.Where(u => u.Email == model.Email);
+                if (user.Any())
                 {
                     ModelState.AddModelError("Email", "Email is already taken");
+                    ViewBag.Roles = new SelectList(db.Roles, "RoleId", "RoleName");
+
                     return View(model);
                 }
-                user = new User
+                var user1 = new User
                 {
                     Username = model.Username,
                     Password = model.Password,
                     Email = model.Email,
                     RoleId = model.RoleId
                 };
-                db.Users.Add(user);
+                db.Users.Add(user1);
                 db.SaveChanges();
                 return RedirectToAction("Login");
             }
+            ViewBag.Roles = new SelectList(db.Roles, "RoleId", "RoleName");
             return View(model);
         }
         [HttpGet]
@@ -67,8 +72,8 @@ namespace ASPNETtask3Login.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.SingleOrDefault(u => u.Username == model.Username && u.Password == model.Password);
-                if (user != null)
+                var user = db.Users.Where(u => u.Username == model.Username && u.Password == model.Password);
+                if (user.Any())
                 {
                     return RedirectToAction("Display");
                 }
